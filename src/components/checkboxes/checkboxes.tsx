@@ -1,14 +1,16 @@
 import { useCallback } from 'react'
 
 import {
+  CheckboxChildren,
   CheckboxesItem,
   CheckboxesLabel,
   CheckboxesProps,
   CheckboxesWrapper,
+  ICheckboxValue,
 } from '.'
-import { Checkbox } from '../../main'
+import { Checkbox } from '../checkbox/checkbox'
 
-export const Checkboxes = <T extends Record<string, unknown>>(
+export const Checkboxes = <T extends ICheckboxValue>(
   props: CheckboxesProps<T>,
 ) => {
   const createMarkup = (html: string) => ({ __html: html })
@@ -33,7 +35,11 @@ export const Checkboxes = <T extends Record<string, unknown>>(
     [props],
   )
   return (
-    <CheckboxesWrapper className={props.className} $width={props.width}>
+    <CheckboxesWrapper
+      className={props.className}
+      $width={props.width}
+      $size={props.size}
+    >
       {props.options.map((e, index) => {
         const isChecked = props.value.some(
           (selectedItem) =>
@@ -46,8 +52,10 @@ export const Checkboxes = <T extends Record<string, unknown>>(
           >
             <Checkbox
               genre={props.checkboxGenre}
-              color={props.checkboxColor}
-              size={props.checkboxSize}
+              isHiddenBorder={props.checkboxIsHiddenBorder}
+              isActive={props.checkboxIsActive}
+              view={props.checkBoxView}
+              size={props.size}
               width={props.checkboxWidth}
               checked={isChecked}
               children={
@@ -62,7 +70,9 @@ export const Checkboxes = <T extends Record<string, unknown>>(
               }
             />
             {props.childrenField && e?.[props.childrenField] !== undefined && (
-              <>{e[props.childrenField]}</>
+              <CheckboxChildren>
+                {e[props.childrenField] as React.ReactNode}
+              </CheckboxChildren>
             )}
           </CheckboxesItem>
         )

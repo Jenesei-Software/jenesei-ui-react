@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 
-import { Checkbox } from '.'
+import { Checkbox, CheckboxProps } from '.'
 
 const meta: Meta<typeof Checkbox> = {
   component: Checkbox,
@@ -10,22 +11,30 @@ const meta: Meta<typeof Checkbox> = {
 export default meta
 type Story = StoryObj<typeof Checkbox>
 
-export const Product: Story = {
-  args: {
-    genre: 'circle',
-    checked: true,
-    color: 'product',
-    children: 'Zhopa',
-    size: 'large',
-  },
+const CheckboxWrapper: React.FC<CheckboxProps> = (props) => {
+  const [value, setValue] = useState<boolean>(false)
+
+  return (
+    <Checkbox
+      {...props}
+      checked={value}
+      onChange={(checked) => setValue(checked)}
+    />
+  )
 }
 
-export const Gray: Story = {
+export const Default: Story = {
+  render: (args) => <CheckboxWrapper {...args} />,
   args: {
-    genre: 'circle',
+    genre: 'gray',
+    view: 'circle',
     checked: true,
-    color: 'gray',
     children: 'Zhopa',
-    size: 'large',
+    size: 'medium',
+    isLoading: false,
+    isDisabled: false,
+    isOnlyLoading: false,
+    isHiddenBorder: false,
+    isActive: false,
   },
 }

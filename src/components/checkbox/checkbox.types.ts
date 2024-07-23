@@ -1,33 +1,69 @@
-import { IJeneseiTheme } from '../../main'
+import {
+  TJeneseiFontFamily,
+  TJeneseiThemeGenre,
+  TJeneseiThemeSize,
+} from '../../theme'
 
 export interface CheckboxProps {
   checked?: boolean
 
-  color?: CheckboxColorType
+  genre: TCheckboxGenre
 
   children?: React.ReactNode
 
-  genre?: CheckboxGenreType
+  view: TCheckboxGenreView
+
+  isDisabled?: boolean
+
+  isOnlyLoading?: boolean
+
+  isLoading?: boolean
+
+  isHiddenBorder?: boolean
+
+  isNotBackground?: boolean
+
+  isActive?: boolean
 
   onChange?: (checked: boolean) => void
 
   width?: string
 
-  size?: CheckboxSizeType
+  size: TJeneseiThemeSize
+
+  customFontFamily?: TJeneseiFontFamily
+
+  customFontSize?: number
+
+  customFontWeight?: number
 }
 
 export interface StyledCheckboxProps {
   $checked?: CheckboxProps['checked']
 
-  $color?: CheckboxProps['color']
+  $genre: CheckboxProps['genre']
+
+  $view?: CheckboxProps['view']
 
   $width?: CheckboxProps['width']
 
-  $size?: CheckboxProps['size']
+  $size: CheckboxProps['size']
+
+  $isDisabled?: CheckboxProps['isDisabled']
+
+  $isActive?: CheckboxProps['isActive']
+
+  $isNotBackground?: CheckboxProps['isActive']
+
+  $isHiddenBorder?: CheckboxProps['isHiddenBorder']
+
+  $customFontFamily?: CheckboxProps['customFontFamily']
+
+  $customFontSize?: CheckboxProps['customFontSize']
+
+  $customFontWeight?: CheckboxProps['customFontWeight']
 }
 
-export type CheckboxSizeType = 'large' | 'medium'
+export type TCheckboxGenreView = 'square' | 'circle'
 
-export type CheckboxGenreType = 'square' | 'circle'
-
-export type CheckboxColorType = keyof IJeneseiTheme['colors']['checkbox']
+export type TCheckboxGenre = keyof TJeneseiThemeGenre

@@ -7,8 +7,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      react: path.resolve('./node_modules/react'),
-      'styled-components': path.resolve('./node_modules/styled-components'),
     },
   },
   plugins: [
@@ -29,15 +27,27 @@ export default defineConfig({
       include: ['src/'],
     }),
   ],
+  publicDir: false,
   build: {
+    sourcemap: true,
+    rollupOptions: {
+      onLog(level, log, handler) {
+        if (
+          log.cause &&
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (log.cause as any)?.message ==
+            `Can't resolve original location of error.`
+        ) {
+          return
+        }
+        handler(level, log)
+      },
+    },
     lib: {
       entry: resolve(__dirname, 'src/main.ts'),
       name: 'jenesei-react-ui',
       formats: ['es', 'umd'],
       fileName: (format) => `jenesei-react-ui.${format}.js`,
-    },
-    rollupOptions: {
-      external: ['react', 'react-dom', 'styled-components'],
     },
   },
 })

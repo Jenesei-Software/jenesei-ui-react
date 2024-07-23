@@ -1,45 +1,75 @@
-import { IJeneseiTheme, LibraryIconNameString } from '../../main'
+import { FlexStylesProps, TLibraryIconNameString } from '../../main'
+import {
+  TJeneseiFontFamily,
+  TJeneseiThemeGenre,
+  TJeneseiThemeSize,
+} from '../../theme'
 
-export interface ButtonProps {
+export interface ButtonProps extends FlexStylesProps{
   className?: string
 
-  color?: ButtonColorType
+  genre: TButtonGenre
 
   children?: React.ReactNode
 
-  genre?: ButtonGenreType
+  size: TJeneseiThemeSize
 
-  size?: ButtonSizeType
+  icon?: TLibraryIconNameString
 
-  icon?: LibraryIconNameString
+  iconPosition?: TButtonIconPosition
 
   isDisabled?: boolean
 
   isHidden?: boolean
 
+  isOnlyLoading?: boolean
+
   isLoading?: boolean
 
-  onClick?: () => void
+  loadingPosition?: TButtonIconPosition
+
+  isActive?: boolean
+
+  isHiddenBorder?: boolean
+
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 
   type?: 'button' | 'submit' | 'reset'
 
-  width?: string
+  width?: string | 'asHeight'
+
+  customFontFamily?: TJeneseiFontFamily
+
+  customFontSize?: number
+
+  customFontWeight?: number
+
+  isFullSize?: boolean
 }
 
-export type ButtonGenreType = 'primary' | 'secondary'
+export type TButtonGenre = keyof TJeneseiThemeGenre
+export type TButtonIconPosition = 'right' | 'left'
 
-export type ButtonSizeType = 'large' | 'medium'
+export interface StyledButtonProps extends FlexStylesProps{
+  $genre: ButtonProps['genre']
 
-export type ButtonColorType = keyof IJeneseiTheme['colors']['button']
-
-export interface StyledButtonProps {
-  $color?: ButtonProps['color']
-
-  $genre?: ButtonProps['genre']
+  $isDisabled?: ButtonProps['isDisabled']
 
   $isHidden?: ButtonProps['isHidden']
 
+  $isActive?: ButtonProps['isActive']
+
+  $isHiddenBorder?: ButtonProps['isHiddenBorder']
+
   $width?: ButtonProps['width']
 
-  $size?: ButtonProps['size']
+  $size: ButtonProps['size']
+
+  $customFontFamily?: ButtonProps['customFontFamily']
+
+  $customFontSize?: ButtonProps['customFontSize']
+
+  $customFontWeight?: ButtonProps['customFontWeight']
+
+  $isFullSize?: ButtonProps['isFullSize']
 }

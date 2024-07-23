@@ -9,53 +9,114 @@ import {
   StyledIconCircle,
   StyledIconSquare,
 } from '.'
+import { ModalLoading } from '../modal-loading'
 
-export const Checkbox: FC<CheckboxProps> = (
-  props = {
-    genre: 'circle',
-    width: 'max-content',
-    size: 'large',
-  },
-) => {
-  const theme = useTheme()
-  const color = theme.colors.checkbox[props.color ?? 'gray']
+export const Checkbox: FC<CheckboxProps> = (props) => {
   const handleOnClick = useCallback(
     (checked: boolean) => {
       props.onChange && props.onChange(checked)
     },
     [props],
   )
-  return (
-    <CheckboxWrapper
-      $color={color}
-      $checked={props.checked}
-      $width={props.width}
-      $size={props.size}
-      tabIndex={0}
-      onClick={() => handleOnClick(!props.checked)}
-    >
+  const theme = useTheme()
+  const children = (
+    <>
       {props.checked ? (
         <>
-          {props.genre == 'square' ? (
-            <StyledCheckedIconSquare $color={color} />
-          ) : props.genre == 'circle' ? (
-            <StyledCheckedIconCircle $color={color} />
+          {props.view == 'square' ? (
+            <StyledCheckedIconSquare
+              size={props.size}
+              $size={props.size}
+              $genre={props.genre}
+              $isActive={props.isActive}
+            />
+          ) : props.view == 'circle' ? (
+            <StyledCheckedIconCircle
+              size={props.size}
+              $size={props.size}
+              $genre={props.genre}
+              $isActive={props.isActive}
+            />
           ) : (
-            <StyledCheckedIconCircle $color={color} />
+            <StyledCheckedIconCircle
+              size={props.size}
+              $size={props.size}
+              $genre={props.genre}
+              $isActive={props.isActive}
+            />
           )}
         </>
       ) : (
         <>
-          {props.genre == 'square' ? (
-            <StyledIconSquare $color={color} />
-          ) : props.genre == 'circle' ? (
-            <StyledIconCircle $color={color} />
+          {props.view == 'square' ? (
+            <StyledIconSquare
+              size={props.size}
+              $size={props.size}
+              $genre={props.genre}
+              $isActive={props.isActive}
+            />
+          ) : props.view == 'circle' ? (
+            <StyledIconCircle
+              size={props.size}
+              $size={props.size}
+              $genre={props.genre}
+              $isActive={props.isActive}
+            />
           ) : (
-            <StyledIconCircle $color={color} />
+            <StyledIconCircle
+              size={props.size}
+              $size={props.size}
+              $genre={props.genre}
+              $isActive={props.isActive}
+            />
           )}
         </>
       )}
       {props.children && props.children}
+    </>
+  )
+  return (
+    <CheckboxWrapper
+      $genre={props.genre}
+      $view={props.view}
+      $checked={props.checked}
+      $width={props.width}
+      $size={props.size}
+      $isDisabled={props.isDisabled}
+      $isHiddenBorder={props.isHiddenBorder}
+      $isActive={props.isActive}
+      $isNotBackground={props.isNotBackground}
+      $customFontFamily={props.customFontFamily}
+      $customFontSize={props.customFontSize}
+      $customFontWeight={props.customFontWeight}
+      disabled={props.isDisabled}
+      tabIndex={0}
+      onClick={() => !props.isDisabled && handleOnClick(!props.checked)}
+    >
+      {props.isOnlyLoading ? (
+        props.isLoading ? (
+          <ModalLoading
+            size={props.size}
+            color={theme.colors.checkbox[props.genre].color.rest}
+          />
+        ) : (
+          children
+        )
+      ) : (
+        <>
+          {children}
+          {props.isLoading && (
+            <ModalLoading
+              size={props.size}
+              color={
+                props.isActive
+                  ? theme.colors.checkbox[props.genre].color.active
+                  : theme.colors.checkbox[props.genre].color.rest
+              }
+            />
+          )}
+        </>
+      )}
     </CheckboxWrapper>
   )
 }

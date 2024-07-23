@@ -1,7 +1,7 @@
+import { TJeneseiThemeSize } from '../../theme'
+
 export interface ModalLoadingProps {
   color?: string
-  size?: ModalLoadingSizeType
+  size: TJeneseiThemeSize
   className?: string
 }
-
-export type ModalLoadingSizeType = 'large' | 'medium' | 'auto'

@@ -1,7 +1,7 @@
 export const isValidLength = (
-  value: string,
+  value: string | null | undefined,
   minLength: number,
   maxLength: number,
 ) => {
-  return value.length >= minLength && value.length <= maxLength
+  return String(value).length >= minLength && String(value).length <= maxLength
 }

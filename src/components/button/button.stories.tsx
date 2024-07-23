@@ -5,79 +5,37 @@ import { Button } from '.'
 
 const meta: Meta<typeof Button> = {
   component: Button,
-  title: 'Button/Button',
+  title: 'Button',
 }
 
 export default meta
+
 type Story = StoryObj<typeof Button>
 
-export const ProductLabel: Story = {
+export const Default: Story = {
   args: {
     children: 'Click',
-    width: '200px',
-    isHidden: false,
-    isLoading: false,
-    isDisabled: false,
-    type: 'button',
-    color: 'product',
-    genre: 'primary',
-    size: 'large',
-  },
-}
-
-export const ProductLabelWithIcon: Story = {
-  args: {
-    children: 'Click',
-    width: '200px',
-    isHidden: false,
-    isLoading: false,
-    isDisabled: false,
-    type: 'button',
-    color: 'product',
-    genre: 'primary',
-    size: 'large',
-    icon: 'Copy',
-  },
-}
-
-export const ProductIcon: Story = {
-  args: {
     width: 'auto',
-    isHidden: false,
+    type: 'button',
+    genre: 'gray',
+    size: 'medium',
     isLoading: false,
     isDisabled: false,
-    type: 'button',
-    color: 'product',
-    genre: 'primary',
-    size: 'large',
-    icon: 'Copy',
+    isOnlyLoading: false,
+    isActive: false,
   },
 }
 
-export const SuccessLabel: Story = {
+export const Icon: Story = {
   args: {
-    children: 'Click',
-    width: '200px',
-    isHidden: false,
+    width: 'asHeight',
+    type: 'button',
+    icon: 'WiFi',
+    genre: 'gray',
+    size: 'medium',
     isLoading: false,
     isDisabled: false,
-    type: 'button',
-    color: 'success',
-    genre: 'primary',
-    size: 'large',
-  },
-}
-
-export const DangerLabel: Story = {
-  args: {
-    children: 'Click',
-    width: '200px',
-    isHidden: false,
-    isLoading: false,
-    isDisabled: false,
-    type: 'button',
-    color: 'danger',
-    genre: 'primary',
-    size: 'large',
+    isOnlyLoading: false,
+    isActive: false,
   },
 }

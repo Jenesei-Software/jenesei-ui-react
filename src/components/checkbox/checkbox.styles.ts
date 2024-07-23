@@ -1,54 +1,130 @@
 import styled, { css } from 'styled-components'
 
 import { StyledCheckboxProps } from '.'
-import { LibraryCheckboxes, fontInterWithSizeAndWeight } from '../../main'
+import { LibraryCheckboxes } from '../../assets/library-checkboxes'
+import { getFontStyles } from '../../fonts'
+import { IJeneseiThemeSizeData, KEY_SIZE_DATA } from '../../theme'
 
 /****************************************** Size *************************************************/
-const CheckboxSizeLarge = css<StyledCheckboxProps>`
-  padding: 10px;
-  border-radius: 22px;
-  ${fontInterWithSizeAndWeight(16, 400)};
-  & svg {
-    height: 20px;
-    width: 20px;
-  }
+export const CheckboxSize = css<StyledCheckboxProps>`
+  ${(props) => CheckboxSizeConstructor(KEY_SIZE_DATA[props.$size])};
 `
-const CheckboxSizeMedium = css<StyledCheckboxProps>`
-  padding: 6px;
-  border-radius: 16px;
-  ${fontInterWithSizeAndWeight(12, 400)};
-  & svg {
-    height: 14px;
-    width: 14px;
-  }
+export const CheckboxSizeConstructor = (props: IJeneseiThemeSizeData) => css`
+  height: ${props.height}px;
+  border-radius: ${props.radius + 12}px;
+  gap: ${props.padding - 2}px;
+  ${getFontStyles(props.font, 600, 'Inter')};
+  padding: 0px ${props.padding}px;
+`
+
+/****************************************** Genre *************************************************/
+export const CheckboxGenre = css<StyledCheckboxProps>`
+  ${(props) => css`
+    background: ${props.theme.colors.checkbox[props.$genre].background.rest};
+    border-color: ${props.theme.colors.checkbox[props.$genre].border.rest};
+    color: ${props.theme.colors.checkbox[props.$genre].color.rest};
+    & span {
+      color: ${props.theme.colors.checkbox[props.$genre].color.rest};
+    }
+    &:focus-visible {
+      outline: 2px solid ${props.theme.colors.focus};
+      border-color: ${props.theme.colors.checkbox[props.$genre].border.focus};
+      background: ${props.theme.colors.checkbox[props.$genre].background.focus};
+      color: ${props.theme.colors.checkbox[props.$genre].color.focus};
+      & span {
+        color: ${props.theme.colors.checkbox[props.$genre].color.focus};
+      }
+    }
+    &:hover {
+      background: ${props.theme.colors.checkbox[props.$genre].background.hover};
+      border-color: ${props.theme.colors.checkbox[props.$genre].border.hover};
+      color: ${props.theme.colors.checkbox[props.$genre].color.hover};
+      & span {
+        color: ${props.theme.colors.checkbox[props.$genre].color.hover};
+      }
+    }
+    &:active {
+      background: ${props.theme.colors.checkbox[props.$genre].background
+        .active};
+      border-color: ${props.theme.colors.checkbox[props.$genre].border.active};
+      color: ${props.theme.colors.checkbox[props.$genre].color.active};
+      & span {
+        color: ${props.theme.colors.checkbox[props.$genre].color.active};
+      }
+    }
+    ${props.$isActive &&
+    css`
+      background: ${props.theme.colors.checkbox[props.$genre].background
+        .active};
+      border-color: ${props.theme.colors.checkbox[props.$genre].border.active};
+      color: ${props.theme.colors.checkbox[props.$genre].color.active};
+      & span {
+        color: ${props.theme.colors.checkbox[props.$genre].color.active};
+      }
+    `}
+  `};
+`
+
+/****************************************** Disabled *************************************************/
+const CheckboxDisabled = css<StyledCheckboxProps>`
+  ${(props) =>
+    props.$isDisabled
+      ? css`
+          opacity: 0.5;
+          background: ${props.theme.colors.checkbox[props.$genre].background
+            .rest} !important;
+          border-color: ${props.theme.colors.checkbox[props.$genre].border
+            .rest} !important;
+          color: ${props.theme.colors.checkbox[props.$genre].color
+            .rest} !important;
+          & span {
+            color: ${props.theme.colors.checkbox[props.$genre].color
+              .rest} !important;
+          }
+        `
+      : css`
+          opacity: 1;
+        `}
+`
+
+/****************************************** HiddenBorder *************************************************/
+const CheckboxHiddenBorder = css<StyledCheckboxProps>`
+  ${(props) =>
+    props.$isHiddenBorder &&
+    css`
+      border-color: transparent !important;
+    `}
 `
 
 /****************************************** Default *************************************************/
-export const CheckboxWrapper = styled.div<StyledCheckboxProps>`
+export const CheckboxWrapper = styled.button<StyledCheckboxProps>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: ${(props) => props.$width ?? 'max-content'};
-  color: ${(props) => props.$color};
-  gap: 10px;
-  cursor: pointer;
-  border: none;
-  outline: none;
+  outline: 1px solid transparent;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  user-select: none;
   transition: all 0.2s;
+
   & {
     user-select: none;
   }
-  &:hover {
-    background-color: ${(props) => `${props.$color}1a`};
-  }
-  &:focus-visible {
-    background-color: ${(props) => `${props.$color}3a`};
-  }
-  &:active {
-    background-color: ${(props) => `${props.$color}4a`};
-  }
-  ${(props) =>
-    props.$size === 'large' ? CheckboxSizeLarge : CheckboxSizeMedium};
+  cursor: pointer;
+
+  ${CheckboxGenre};
+  ${CheckboxDisabled}
+  ${CheckboxHiddenBorder};
+  ${CheckboxSize};
+
+  font-family: ${(props) => props.$customFontFamily};
+  font-size: ${(props) => props.$customFontSize};
+  font-weight: ${(props) => props.$customFontWeight};
+  width: ${(props) => props.$width ?? 'max-content'};
+  min-width: ${(props) => props.$width ?? 'max-content'};
+  background-color: ${(props) => props.$isNotBackground && 'transparent'};
 `
 
 /****************************************** Styled *************************************************/
@@ -59,20 +135,25 @@ export const StyledIconCircle = styled(
     fill: transparent;
   }
   & #uncheck {
-    fill: ${(props) => props.$color};
+    fill: ${(props) =>
+      props.$isActive
+        ? props.theme.colors.checkbox[props.$genre].color.active
+        : props.theme.colors.checkbox[props.$genre].color.rest};
   }
 `
 export const StyledCheckedIconCircle = styled(
   LibraryCheckboxes.Radio,
 )<StyledCheckboxProps>`
   & #check {
-    fill: ${(props) => props.$color};
+    fill: ${(props) =>
+      props.$isActive
+        ? props.theme.colors.checkbox[props.$genre].color.active
+        : props.theme.colors.checkbox[props.$genre].color.rest};
   }
   & #uncheck {
     fill: transparent;
   }
 `
-
 export const StyledIconSquare = styled(
   LibraryCheckboxes.Square,
 )<StyledCheckboxProps>`
@@ -80,7 +161,10 @@ export const StyledIconSquare = styled(
     fill: transparent;
   }
   & #not-center {
-    stroke: ${(props) => props.$color};
+    stroke: ${(props) =>
+      props.$isActive
+        ? props.theme.colors.checkbox[props.$genre].color.active
+        : props.theme.colors.checkbox[props.$genre].color.rest};
   }
   & #center-white {
     fill: transparent;
@@ -90,13 +174,14 @@ export const StyledCheckedIconSquare = styled(
   LibraryCheckboxes.Square,
 )<StyledCheckboxProps>`
   & #center {
-    fill: ${(props) => props.$color};
+    fill: ${(props) => props.theme.colors.checkbox[props.$genre].color.rest};
   }
   & #not-center {
     fill: transparent;
-    stroke: ${(props) => props.$color};
+    stroke: ${(props) => props.theme.colors.checkbox[props.$genre].color.rest};
   }
   & #center-white {
-    fill: ${(props) => props.theme.colors.white['100']};
+    fill: ${(props) =>
+      props.theme.colors.checkbox[props.$genre].background.rest};
   }
 `

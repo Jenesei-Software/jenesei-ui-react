@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 import 'styled-components'
 
-import { Checkboxes } from '.'
+import { Checkboxes, CheckboxesProps, ICheckboxValue } from '.'
 
 const meta: Meta<typeof Checkboxes> = {
   component: Checkboxes,
@@ -11,73 +12,41 @@ const meta: Meta<typeof Checkboxes> = {
 export default meta
 type Story = StoryObj<typeof Checkboxes>
 
-export const Product: Story = {
-  args: {
-    checkboxGenre: 'square',
-    checkboxColor: 'product',
-    checkboxSize: 'large',
-    checkboxWidth: '100%',
-    value: [{ value: 0, label: 'First' }],
-    options: [
-      { value: 0, label: 'First' },
-      { value: 1, label: 'Second' },
-    ],
-    labelField: 'label',
-    valueField: 'value',
-    multiple: true,
-    width: '300px',
-  },
+const defaultArgs: Partial<CheckboxesProps<ICheckboxValue>> = {
+  checkboxGenre: 'gray',
+  checkBoxView: 'circle',
+  checkboxWidth: '100%',
+  checkboxIsHiddenBorder: false,
+  checkboxIsActive: false,
+  multiple: true,
+  size: 'medium',
+  labelField: 'label',
+  valueField: 'value',
+  width: '300px',
 }
 
-export const ProductChildren: Story = {
-  args: {
-    checkboxGenre: 'square',
-    checkboxColor: 'product',
-    checkboxSize: 'large',
-    value: [{ value: 0, children: 'First' }],
-    options: [
-      { value: 0, children: 'First' },
-      { value: 1, children: 'Second' },
-    ],
-    valueField: 'value',
-    childrenField: 'children',
-    multiple: true,
-    width: '100%',
-  },
+const CheckboxesWrapper: React.FC<CheckboxesProps<ICheckboxValue>> = (
+  props,
+) => {
+  const [value, setValue] = useState<ICheckboxValue[]>([])
+  const [options] = useState<ICheckboxValue[]>([
+    { value: 0, label: 'First' },
+    { value: 1, label: 'Second' },
+  ])
+
+  return (
+    <Checkboxes
+      {...props}
+      value={value}
+      options={options}
+      onChange={(value) => setValue(value)}
+    />
+  )
 }
 
-export const ProductLabelWithChildren: Story = {
+export const Default: Story = {
+  render: (args) => <CheckboxesWrapper {...args} />,
   args: {
-    checkboxGenre: 'square',
-    checkboxColor: 'product',
-    checkboxSize: 'large',
-    checkboxWidth: '140px',
-    value: [{ value: 0, label: 'First' }],
-    options: [
-      { value: 0, label: 'First' },
-      { value: 1, label: 'Second', children: '<LibraryIcon.Support />' },
-    ],
-    labelField: 'label',
-    valueField: 'value',
-    childrenField: 'children',
-    multiple: true,
-    width: '100%',
-  },
-}
-
-export const Gray: Story = {
-  args: {
-    checkboxGenre: 'square',
-    checkboxColor: 'gray',
-    checkboxSize: 'large',
-    value: [{ value: 0, label: 'First' }],
-    options: [
-      { value: 0, label: 'First' },
-      { value: 1, label: 'Second' },
-    ],
-    labelField: 'label',
-    valueField: 'value',
-    multiple: true,
-    width: '300px',
+    ...defaultArgs,
   },
 }
