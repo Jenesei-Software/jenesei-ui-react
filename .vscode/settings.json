@@ -21,5 +21,8 @@
   "cSpell.words": [
     "jenesei",
     "sonner"
-  ]
+  ],
+  "[css]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }
