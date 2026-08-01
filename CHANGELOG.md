@@ -1,9 +1,20 @@
+## [2.3.6](https://github.com/jenesei-software/jenesei-kit-react/compare/v2.3.5...v2.3.6) (2026-08-01)
+
+
+### chore
+
+* clean up unused code and improve project structure ([30b78fd](https://github.com/jenesei-software/jenesei-kit-react/commit/30b78fd13f159e3e072cb6d13e081cd06e279ce8))
+
 ## [2.3.5](https://github.com/jenesei-software/jenesei-kit-react/compare/v2.3.4...v2.3.5) (2026-07-31)
 
 
 ### style
 
 * update reset styles for better layout control ([d903299](https://github.com/jenesei-software/jenesei-kit-react/commit/d9032992d4c6b75bbc7295ace8a67f944101e8c8))
+
+### version
+
+* 2.3.5 ([a4b4a3a](https://github.com/jenesei-software/jenesei-kit-react/commit/a4b4a3ad4a3163c494abd6192f8ba749e722ec25))
 
 ## [2.3.4](https://github.com/jenesei-software/jenesei-kit-react/compare/v2.3.3...v2.3.4) (2026-06-20)
 
