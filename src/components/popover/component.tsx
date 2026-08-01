@@ -229,6 +229,7 @@ export const usePopover = (props: IUsePopover) => {
   } = useFloating({
     open: isOpen,
     placement: props.placement,
+    strategy: 'fixed',
 
     middleware: [
       offset(defaultOffset),

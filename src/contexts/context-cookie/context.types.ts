@@ -1,7 +1,7 @@
-import Cookies from 'node_modules/@types/js-cookie';
+import type Cookies from 'js-cookie';
 import { PropsWithChildren } from 'react';
 
-export type ICookieAttributes = Cookies.CookieAttributes;
+export type ICookieAttributes = NonNullable<Parameters<typeof Cookies.set>[2]>;
 
 export interface ICookieProvider extends PropsWithChildren {
   validate?: {

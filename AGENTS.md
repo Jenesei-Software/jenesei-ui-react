@@ -17,7 +17,7 @@ This repository is a published React component library, not an application.
 
 ## Important rules
 
-- Use npm
+- Use Yarn 1 (`yarn@1.22.22`)
 - Do not edit build output manually
 - Keep TypeScript strict
 - Use @local/* alias for src imports
@@ -28,13 +28,13 @@ This repository is a published React component library, not an application.
 ## Commands
 
 ```bash
-npm run gen:exports
-npm run typecheck
-npm run typecheck:storybook
-npm run biome:lint:check
-npm run build:library
-npm run build:storybook
-npm run storybook
+yarn gen:exports
+yarn typecheck
+yarn typecheck:storybook
+yarn biome:lint:check
+yarn build:library
+yarn build:storybook
+yarn storybook
 ```
 
 ## Public API
@@ -44,7 +44,7 @@ vite.config.ts is the source of truth for public entries.
 If adding/removing public exports:
 
 1. Update vite.config.ts
-2. Run npm run gen:exports
+2. Run yarn gen:exports
 3. Verify package.json exports
 4. Run build validation
 

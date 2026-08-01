@@ -16,9 +16,8 @@
 
     // Local source alias used across the library and stories.
     "ignoreDeprecations": "6.0",
-    "baseUrl": ".",
     "paths": {
-      "@local/*": ["src/*"]
+      "@local/*": ["./src/*"]
     },
 
     // Shared type safety defaults.
